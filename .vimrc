@@ -1,6 +1,9 @@
 set nocompatible              " required
 filetype off                  " required
-
+syntax on
+colorscheme nova
+let g:airline_theme='onedark'
+set background=dark
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -11,13 +14,27 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'altercation/vim-colors-solarized'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
+Plugin 'mxw/vim-jsx'
+Plugin 'severin-lemaignan/vim-minimap'
+Plugin 'pangloss/vim-javascript'
+Plugin 'othree/es.next.syntax.vim'
+Plugin 'elzr/vim-json'
+Plugin 'othree/yajs.vim'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'w0rp/ale'
+"Plugin 'joshdick/onedark.vim'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'trevordmiller/nova-vim'
+"Plugin 'Valloric/YouCompleteMe'
+" download font from https://github.com/ryanoasis/nerd-fonts#patched-fonts
+Plugin 'ryanoasis/vim-devicons'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 
@@ -30,22 +47,27 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 nnoremap <C-H> <C-W>h
+set encoding=UTF-8
 set foldmethod=indent
 set foldlevel=99
 set encoding=utf-8
 set nu
-au BufNewFile,BufRead *.py set
-    \ tabstop=4
-    \ softtabstop=4
-    \ shiftwidth=4
-    \ textwidth=79
-    \ expandtab
-    \ autoindent
-    \ fileformat=unix
-au BufNewFile,BufRead *.js, *.html, *.css set
-    \ tabstop=2
-    \ softtabstop=2
-    \ shiftwidth=2
+set tabstop=2
+set shiftwidth=2
+set autoindent
+set expandtab
+"au BufNewFile,BufRead *.py set
+"   \ tabstop=4
+"    \ softtabstop=4
+"    \ shiftwidth=4
+"    \ textwidth=79
+"    \ expandtab
+"    \ autoindent
+"    \ fileformat=unix
+"au BufNewFile,BufRead *.html, *.css set
+"    \ tabstop=2
+"    \ softtabstop=2
+"    \ shiftwidth=2
 highlight Cursor guifg=white guibg=black
 highlight iCursor guifg=white guibg=steelblue
 set guicursor=n-v-c:block-Cursor
@@ -82,4 +104,28 @@ let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
+" jsx
+let g:jsx_ext_required = 1
+let g:jsx_pragma_required = 1
+let g:gitgutter_max_signs = 500
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+let g:gitgutter_override_sign_column_highlight = 0
 
+if exists('&signcolumn')  " Vim 7.4.2201
+  set signcolumn=yes
+else
+  let g:gitgutter_sign_column_always = 1
+endif
+
+highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2 ctermbg=0
+highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3 ctermbg=0
+highlight GitGutterDelete guifg=#ff2222 guibg=#073642 ctermfg=1 ctermbg=0
+
+highlight link GitGutterChangeLine DiffText
+
+" Eslint 
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+let g:polyglot_disabled = ['graphql']
